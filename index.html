@@ -10,6 +10,7 @@
     <div class="card">
         <h1>TOTP generator</h1>
         <p>Scan this QR code with Google Authenticator or Authy.</p>
+        <p>Or enter code below in code prompt</p>
 
         <div class="qr">
             <img src="data:image/png;base64,{{ qr_base64 }}" alt="QR Code">
@@ -20,8 +21,6 @@
         <div class="timer">
             Expires in <span id="time-left">?</span> seconds
         </div>
-
-        <button onclick="refreshOnce()">Refresh Now</button>
 
         <p class="note">
             Secret changes each time server restarts.<br>
