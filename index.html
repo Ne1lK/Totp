@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TOTP Generator</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body>
+    <div class="card">
+        <h1>TOTP generator</h1>
+        <p>Scan this QR code with Google Authenticator or Authy.</p>
+
+        <div class="qr">
+            <img src="data:image/png;base64,{{ qr_base64 }}" alt="QR Code">
+        </div>
+
+        <div class="code" id="code">------</div>
+
+        <div class="timer">
+            Expires in <span id="time-left">?</span> seconds
+        </div>
+
+        <button onclick="refreshOnce()">Refresh Now</button>
+
+        <p class="note">
+            Secret changes each time server restarts.<br>
+            Page updates automatically every second.
+        </p>
+    </div>
+
+    <script>
+        async function fetchCurrent() {
+            const res = await fetch('/current');
+            const data = await res.json();
+            document.getElementById('code').textContent = data.code;
+            document.getElementById('time-left').textContent = data.time_left;
+        }
+
+        function refreshOnce() {
+            fetchCurrent();
+        }
+
+        fetchCurrent();
+        setInterval(fetchCurrent, 1000);
+    </script>
+</body>
+</html>
