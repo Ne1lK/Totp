@@ -40,6 +40,7 @@ def current():
     time_left = totp.interval - (int(time.time()) % totp.interval)
     return jsonify({"code": code, "time_left": time_left})
 
+#used for communication with a 2fa on login
 @app.route("/verify", methods=["POST"])
 def verify():
     data = request.get_json(silent=True) or {}

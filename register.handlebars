@@ -1,0 +1,51 @@
+{{!-- for use with login as registration page, and 2fa. also has delete and create user functionality --}}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register</title>
+</head>
+<body>
+
+    <h2>Register</h2>
+
+    <form action="/register" method="post">
+        <label for="username">Username</label><br>
+        <input type="text" name="username" id="username" required><br><br>
+
+        <label for="password">Password</label><br>
+        <input type="password" name="password" id="password" required><br><br>
+
+        <span>Enable 2FA (TOTP)?</span><br>
+        <label>
+            <input type="radio" name="enable2fa" value="yes" checked>
+            Yes
+        </label>
+        <label>
+            <input type="radio" name="enable2fa" value="no">
+            No
+        </label>
+        <br><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <h3>Delete User, on success sends you to a json page for microservice requirements</h3>
+
+    <form action="/delete-user" method="POST">
+        <input type="text" name="username" placeholder="Username to delete" required>
+        <button type="submit">Delete User</button>
+    </form>
+
+    <!-- Handlebars messages -->
+    {{#if error}}
+        <p>{{error}}</p>
+    {{/if}}
+
+    {{#if message}}
+        <p>{{message}}</p>
+    {{/if}}
+
+</body>
+</html>
